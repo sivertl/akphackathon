@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jQuery mapify - Custom View</title>
+		<style type="text/css" media="all">@import "css/marker.css";</style>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" media="screen">
+
+		<script type="text/javascript" src="js/jquery/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery/jquery-ui.js"></script>
+		<!--<script type="text/javascript" src="../libs/jquery.fs.zoetrope.min.js"></script> used for polyfill and polyline-->
+		<script type="text/javascript" src="js/toe.min.js"></script>
+		<script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
+		<script type="text/javascript" src="js/imgViewer.min.js"></script>
+		<script type="text/javascript" src="js/mapify.js"></script>
+	</head>
+	<body>
+		<h1 style="text-align: center;">Zhan's mapify.</h1>
+		<p>
+			This example demonstrates the use of jquery's plugin imgViewer in combination of mapify. You must provide the top left and bottom right corner of the image's latitude and longitude in order to calculate any latitude/longitude inside.
+		</p>
+		<div class="mapify" style="text-align: center">
+			<div><p>TopLeft Latitude :</p><input type="number" id="topLeftLat" disabled> <p>TopLeft Longitude :</p><input type="number" id="topLeftLng"  disabled></div>
+			<div><p>Marker Latitude :</p><input type="number" id="selectedMarkerLat"> <p>Marker Longitude :</p><input type="number" id="selectedMarkerLng"></div>
+			<div><p>BottomRight Latitude :</p><input type="number" id="bottomRightLat" disabled> <p>BottomRight Longitude :</p><input type="number" id="bottomRightLng"  disabled></div>
+			<button id="editMode">Edit</button>
+			<button id="deleteMarker" class="s">Delete</button>
+			<br></br>
+			<img class="image" src="img/vancouverMap.jpg" />
+		</div>
+		<script type="text/javascript">
+		
+		(function($) {
+			$(document).ready(function() {
+				var $markerLat = $("#selectedMarkerLat");
+				var $markerLng = $("#selectedMarkerLng");
+
+				var $img = $(".image").mapify({
+							topLatLng:{lat:49.285546, lng:-123.119395},
+							botLatLng:{lat:49.284271, lng:-123.117394},
+							markersLatLng:[
+								{lat: 49.284893, lng: -123.118376, note: "Intersection"},
+								{lat: 49.285524, lng: -123.118718, note: "Cactus Club"},
+								{lat: 49.285022, lng: -123.118267, note: "Brandi Show Lounge"}
+							],
+							markerSrc:{
+								src:"img/marker.png",
+								width:27,
+								height:40,
+								textColor:'#F0F',
+								textSize:15
+							},
+							zoomable:false,
+							onShow: $.noop, //jQuery's default empty function - $.noop
+							onAdd: function() {
+								this.options.vAll = "bottom";
+								this.options.hAll = "middle";
+								var elem = $(document.createElement('span')).addClass("marker").html(this.markerCount).attr("title", "");
+								var self = this;
+								$(elem).tooltip({
+									content: function() {
+										return $(elem).data("note");
+									}
+								});
+								return elem;
+							},
+							onDragStart:function(e){},
+							onDrag:function(e){ 
+								//Display marker's latitude and longitude while dragging onto the textbox
+								$markerLat.val(e.target.data("lat"));
+								$markerLng.val(e.target.data("lng"));
+							},
+							onDragStop:function(e){},
+							onMarkerClick:function(e){
+								//Display marker's current latitude and longitude onto the textbox
+								if(e !== null){
+									$markerLat.val(e.data("lat"));
+									$markerLng.val(e.data("lng"));
+								}else{
+									$markerLat.val(null);
+									$markerLng.val(null);
+								}
+								
+							},
+				});
+
+				//Handles toggle mode between Edit/View
+				var $toggle = $("#editMode");
+				if($img.mapify("option","editMode")){
+					$toggle.text("View");
+				}else{
+					$toggle.text("Edit");
+				}
+				$toggle.on("click",function(){
+					var $this = $(this);
+					if($this.text() == "Edit"){
+						$this.text("View");
+						$img.mapify("option","editMode",true);
+					}else{
+						$this.text("Edit");
+						$img.mapify("option","editMode",false);
+						$img.mapify("resetSelected");
+					}
+				});
+
+				//Handles deleting markers
+				var $deleteMarker = $("#deleteMarker");
+				$deleteMarker.on("click",function(){
+					//Find the selected marker
+					$markerArray = $img.mapify("exportMarker");
+					$.each($markerArray, function(){ 
+						var $elem = $(this); 
+						//console.log($elem.data("id"));
+						if($elem.data("selected")){
+							$img.mapify("deleteMarker",$elem);
+							return false;
+						}
+					}); console.log("done deleting marker");
+					
+					//$img.mapify("printSelected");//debug 
+				});
+
+				//Handles input mode for selected marker
+				$markerLat.keyup(function(event){ 
+					if(event.which != 46 && event.which != 8 && isNaN(String.fromCharCode(event.which))){
+            			event.preventDefault();
+        			}else{
+        				var $elem = $img.mapify("getSelectedMarker");
+        				if($elem != null){
+        					$img.mapify("moveMarker", $elem, $markerLat.val(), $markerLng.val());
+        				}
+        			}
+				});
+				$markerLng.keyup(function(event){
+					if(event.which != 46 && event.which != 8 && isNaN(String.fromCharCode(event.which))){
+            			event.preventDefault();
+        			}else{
+    					var $elem = $img.mapify("getSelectedMarker");
+        				if($elem != null){
+        					$img.mapify("moveMarker", $elem, $markerLat.val(), $markerLng.val());
+        				}
+        			}
+				});
+		  	});
+		})(jQuery);
+		</script>
+	</body>
+</html>
