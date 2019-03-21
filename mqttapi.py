@@ -3,6 +3,8 @@ import paho.mqtt.client as _mqtt
 import ssl
 import json
 import math
+import time
+import traceback
 
 import sys
 
@@ -11,6 +13,7 @@ class MQTT:
 	__device_data = {}
 	__message_count = 0
 	__fallen_callback = None
+	__fall_timeout = 30
 	
 	# Initializes the shared mqtt client if not done so already
 	def __init__(self, host='mqtt.cloud.pozyxlabs.com', port=443, username='', password='', use_ssl = True, use_websocket = True, topics=[]):
@@ -59,14 +62,17 @@ class MQTT:
 				MQTT.__process_message(message)
 		except Exception as e:
 			print('__on_message error: ', e)
+			traceback.print_exc()
+			sys.exit(-1)
 	
 	# 
 	def __process_message(msg):
-		if msg['success'] == False:
-			return
 		tagid = msg['tagId']
 		if not tagid in MQTT.__device_data:
 			MQTT.__device_data[tagid] = {}
+			
+		if msg['success'] == False:
+			return
 		
 		MQTT.__device_data[tagid]['previous_xyz'] = msg['data']['coordinates']
 		
@@ -79,9 +85,18 @@ class MQTT:
 											)
 			# If the device is experiencing high or low acceleration (1000 is normal acceleration due to gravity)
 			if acceleration > 2000 or acceleration < 150:
-				# check if a fall callback function has been set
-				if not type(MQTT.__fallen_callback) != type(None):
-					MQTT.__fallen_callback(tagid)
+				# if first fall, set the time of the last time to zero ( way back in 1th of january 1970 :P )
+				if not 'lastfall_time' in MQTT.__device_data[tagid]:
+					MQTT.__device_data[tagid]['lastfall_time'] = 0
+					
+				# check that the previous fall was sufficiently long ago
+				if time.time() - MQTT.__device_data[tagid]['lastfall_time'] > MQTT.__fall_timeout:
+					# check if a fall callback function has been set, if so, run it
+					if not MQTT.__fallen_callback is None:
+						MQTT.__fallen_callback(tagid)
+						
+				# reset the fall timer to current time
+				MQTT.__device_data[tagid]['lastfall_time'] = time.time()
 	
 	# Returns the latest coordinates as a dictionary of 'x', 'y' and 'z'
 	# If device is not known, or if no xyz data has been found on the device, it returns None
@@ -94,6 +109,7 @@ class MQTT:
 	
 	# Sets a callback function to be run when a fall is detected in a device
 	# Function should have an argument that is the id of the falling device
+	@staticmethod
 	def set_fall_callback(callback_function):
 		MQTT.__fallen_callback = callback_function
 
