@@ -10,6 +10,7 @@ class MQTT:
 	__mqttclient = None
 	__device_data = {}
 	__message_count = 0
+	__fallen_callback = None
 	
 	# Initializes the shared mqtt client if not done so already
 	def __init__(self, host='mqtt.cloud.pozyxlabs.com', port=443, username='', password='', use_ssl = True, use_websocket = True, topics=[]):
@@ -47,7 +48,7 @@ class MQTT:
 	# Unbound function to act as message callback
 	def __on_message(client, userdata, msg_b):
 		try:
-			sys.stdout.write('\r{}      '.format(MQTT.__message_count))
+			sys.stdout.write('\r{:5}   '.format(MQTT.__message_count))
 			MQTT.__message_count += 1
 			# We parse the message payload and iterate over the array of... data? messages? whatever you want to call it
 			message = json.loads(msg_b.payload.decode())
@@ -76,14 +77,23 @@ class MQTT:
 												math.pow(acceleration_xyz[1], 2) + 
 												math.pow(acceleration_xyz[2], 2)
 											)
-			if acceleration > 2200:
-				print('FALLING! - {}'.format(tagid))
+			# If the device is experiencing high or low acceleration (1000 is normal acceleration due to gravity)
+			if acceleration > 2000 or acceleration < 150:
+				# check if a fall callback function has been set
+				if not type(MQTT.__fallen_callback) != type(None):
+					MQTT.__fallen_callback(tagid)
 	
 	# Returns the latest coordinates as a dictionary of 'x', 'y' and 'z'
+	# If device is not known, or if no xyz data has been found on the device, it returns None
 	def get_coordinates(device_key):
-		if device_key in __previous_xyz:
-			return __previous_xyz[device_key]
+		# if the device key is in the device data list, and that it has a previous xyz value stored
+		if device_key in MQTT.__device_data and 'previous_xyz' in MQTT.__device_data[device_key]:
+				return MQTT.__device_data[device_key]['previous_xyz']
 		else:
-			raise KeyError('device key "{}" not found in coordinate dictionary'.format(device_key))
+			return None
 	
+	# Sets a callback function to be run when a fall is detected in a device
+	# Function should have an argument that is the id of the falling device
+	def set_fall_callback(callback_function):
+		MQTT.__fallen_callback = callback_function
 
