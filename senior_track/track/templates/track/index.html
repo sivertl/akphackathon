@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html style="background-color: #f50505;">
+<html style="background-color: #ffffff;">
 
 <head>
     <meta charset="utf-8">
@@ -20,14 +20,17 @@
         <div class="container"><a class="navbar-brand" href="#">Track an elderly person</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav">
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Home</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="#">User profile</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="{% url 'base:home' %}">Home</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#addProfile">User profile</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href= "{% url 'base:map' %}">Map</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="#">Terms &amp; Use</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <header class="masthead text-white text-center" style="background: url('assets/img/bg-masthead.jpg')no-repeat center center;background-size: cover;height: 419px;"></header>
+    <div  href ="#">
+    <header class="masthead text-white text-center" style="background: url('static/images/floor_map.png')no-repeat center center;background-size: cover;height: 419px;"></header>
+    </div>
     <section class="features-icons bg-light text-center" style="background-color: rgb(12,53,94);">
         <div class="container">
             <div class="row">
@@ -35,52 +38,52 @@
                     <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
                         <div class="d-flex features-icons-icon"><i class="icon-screen-desktop m-auto text-primary" data-bs-hover-animate="pulse"></i></div>
                         <h3>No Escape</h3>
-                        <p class="lead mb-0">Did Nan run away again? Worry not, we got you covered! Surveillance 24/7 makes sure we'll locate your nan in no time!</p>
+                        <p class="lead mb-0">Did nan run away again? Worry not, we got you covered! Surveillance 24/7 makes sure we'll locate your nan in no time!</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
                         <div class="d-flex features-icons-icon"><i class="icon-layers m-auto text-primary" data-bs-hover-animate="pulse"></i></div>
-                        <h3>Every Floor</h3>
-                        <p class="lead mb-0">Are you afraid that she might be hiding on another floor?<br>With Anchors on every floor, there is nowhere to hide!</p>
+                        <h3>Full building Coverage</h3>
+                        <p class="lead mb-0">Large building ? No problem. <br>Anchors on every floor makes sure there are no nooks nor crannies left uncovered by our tracking</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
                         <div class="d-flex features-icons-icon"><i class="icon-check m-auto text-primary" data-bs-hover-animate="pulse"></i></div>
-                        <h3>Guaranteed captured</h3>
+                        <h3>Capture Guaranteed</h3>
                         <p class="lead mb-0"></p>
                     </div>
-                    <p class="lead mb-0">Are you afraid that she might be hiding on another floor?<br><br></p>
+                    <p class="lead mb-0">Lost elderly are guaranteed to be returned within the hour<br><br></p>
                 </div>
             </div>
             <div class="row" style="background-color: rgba(255,255,255,0);padding: 106px;">
                 <div class="col">
-                    <div class="card">
+                    <div class="card", id = "addProfile">
                         <div class="card-body mt-auto">
                             <h4 class="card-title">Add a Profile</h4>
                             <form class="register-form">
                                 <fieldset>
                                     <div class="form-row">
                                         <div class="col-md-12"><input class="form-control d-none" type="text" value="vr-campus-tours" id="lp-formID"><input class="form-control d-none" type="text" value="<?php echo $_GET['path'];?>" id="lp-pathID"></div>
-                                        <div class="col-6 col-sm-6 col-md-6">
-                                            <div id="lp-name-wrapper"><input class="form-control" type="text" placeholder="Enter some parameters" id="lp-name"></div>
+                                        <div class="col-12 col-sm-6 col-md-12">
+                                            <div id="lp-name-wrapper"><input class="form-control" type="text" placeholder="Enter parameters" id="lp-name"></div>
                                         </div>
                                         <div class="col-12 col-sm-6 col-md-12">
-                                            <div id="lp-mail-wrapper"><input class="form-control" type="text" placeholder="Enter some parameters" id="lp-mail"></div>
-                                        </div>
-                                        <div class="col-8 col-sm-4 col-md-7">
-                                            <div id="lp-telnumber-wrapper"><input class="form-control" type="text" placeholder="Enter some parameters" id="lp-telnumber"></div>
+                                            <div id="lp-mail-wrapper"><input class="form-control" type="text" placeholder="Enter parameters" id="lp-mail"></div>
                                         </div>
                                         <div class="col-12 col-sm-6 col-md-12">
-                                            <div id="customfield1-wrapper"><input class="form-control" type="text" placeholder="Enter some parameters"id="customfield1"></div>
+                                            <div id="lp-telnumber-wrapper"><input class="form-control" type="text" placeholder="Enter parameters" id="lp-telnumber"></div>
                                         </div>
                                         <div class="col-12 col-sm-6 col-md-12">
-                                            <div id="lp-title-wrapper"><input class="form-control" type="text" placeholder="Enter some parameters" id="lp-title"></div>
+                                            <div id="customfield1-wrapper"><input class="form-control" type="text" placeholder="Enter parameters"id="customfield1"></div>
+                                        </div>
+                                        <div class="col-12 col-sm-6 col-md-12">
+                                            <div id="lp-title-wrapper"><input class="form-control" type="text" placeholder="Enter parameters" id="lp-title"></div>
                                         </div>
                                         <div class="col-12 col-sm-6 col-md-12">
                                             <div id="lp-check1-wrapper">
-                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="lp-check1"><label class="form-check-label checboxtext" for="lp-check1">Are you sure the above information is correct?</label></div>
+                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="lp-check1"><label class="text" for="lp-check1">Are you sure the above information is correct?</label></div>
                                             </div>
                                         </div>
                                         <div class="col-md-12"><input class="form-control d-none" type="text" id="lp-country"><input class="form-control d-none" type="text" id="lp-website"><input class="form-control d-none" type="text" id="lp-city"><input class="form-control d-none"
@@ -109,6 +112,8 @@
                                 <li class="list-group-item"><span>Disabled</span></li>
                                 <li class="list-group-item"><span>Forgetful</span></li>
                                 <li class="list-group-item"><span>Dangerous</span></li>
+                                <li class="list-group-item"><span>Contagious</span></li>
+                                <li class="list-group-item"><span>Healthy</span></li>
                             </ul>
                         </div>
                     </div>
