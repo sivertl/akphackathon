@@ -7,3 +7,7 @@ def home(request):
 
 def check_alerts(request):
     return JsonResponse({"hey":"hey"})
+    
+def map(request):
+    return render(request, 'map/map.html')
+    
