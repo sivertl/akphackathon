@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html style="background-color: #f50505;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - Brand</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/simple-line-icons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,700,400italic,300italic,700italic">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="assets/css/TR-Form.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand bg-light navigation-clean">
+        <div class="container"><a class="navbar-brand" href="#">Track an elderly person</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#">User profile</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#">Terms &amp; Use</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead text-white text-center" style="background: url('assets/img/bg-masthead.jpg')no-repeat center center;background-size: cover;height: 419px;"></header>
+    <section class="features-icons bg-light text-center" style="background-color: rgb(12,53,94);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                        <div class="d-flex features-icons-icon"><i class="icon-screen-desktop m-auto text-primary" data-bs-hover-animate="pulse"></i></div>
+                        <h3>No Escape</h3>
+                        <p class="lead mb-0">Did Nan run away again? Worry not, we got you covered! Surveillance 24/7 makes sure we'll locate your nan in no time!</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                        <div class="d-flex features-icons-icon"><i class="icon-layers m-auto text-primary" data-bs-hover-animate="pulse"></i></div>
+                        <h3>Every Floor</h3>
+                        <p class="lead mb-0">Are you afraid that she might be hiding on another floor?<br>With Anchors on every floor, there is nowhere to hide!</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                        <div class="d-flex features-icons-icon"><i class="icon-check m-auto text-primary" data-bs-hover-animate="pulse"></i></div>
+                        <h3>Guaranteed captured</h3>
+                        <p class="lead mb-0"></p>
+                    </div>
+                    <p class="lead mb-0">Are you afraid that she might be hiding on another floor?<br><br></p>
+                </div>
+            </div>
+            <div class="row" style="background-color: rgba(255,255,255,0);padding: 106px;">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body mt-auto">
+                            <h4 class="card-title">Add a Profile</h4>
+                            <form class="register-form">
+                                <fieldset>
+                                    <div class="form-row">
+                                        <div class="col-md-12"><input class="form-control d-none" type="text" value="vr-campus-tours" id="lp-formID"><input class="form-control d-none" type="text" value="<?php echo $_GET['path'];?>" id="lp-pathID"></div>
+                                        <div class="col-6 col-sm-6 col-md-6">
+                                            <div id="lp-name-wrapper"><input class="form-control" type="text" placeholder="Enter some parameters" id="lp-name"></div>
+                                        </div>
+                                        <div class="col-12 col-sm-6 col-md-12">
+                                            <div id="lp-mail-wrapper"><input class="form-control" type="text" placeholder="Enter some parameters" id="lp-mail"></div>
+                                        </div>
+                                        <div class="col-8 col-sm-4 col-md-7">
+                                            <div id="lp-telnumber-wrapper"><input class="form-control" type="text" placeholder="Enter some parameters" id="lp-telnumber"></div>
+                                        </div>
+                                        <div class="col-12 col-sm-6 col-md-12">
+                                            <div id="customfield1-wrapper"><input class="form-control" type="text" placeholder="Enter some parameters"id="customfield1"></div>
+                                        </div>
+                                        <div class="col-12 col-sm-6 col-md-12">
+                                            <div id="lp-title-wrapper"><input class="form-control" type="text" placeholder="Enter some parameters" id="lp-title"></div>
+                                        </div>
+                                        <div class="col-12 col-sm-6 col-md-12">
+                                            <div id="lp-check1-wrapper">
+                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="lp-check1"><label class="form-check-label checboxtext" for="lp-check1">Are you sure the above information is correct?</label></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12"><input class="form-control d-none" type="text" id="lp-country"><input class="form-control d-none" type="text" id="lp-website"><input class="form-control d-none" type="text" id="lp-city"><input class="form-control d-none"
+                                                type="text" id="customfield10"><input class="form-control d-none" type="text" id="customfield9"><input class="form-control d-none" type="text" id="customfield8"><input class="form-control d-none" type="text"
+                                                id="customfield7"><input class="form-control d-none" type="text" id="customfield6"><input class="form-control d-none" type="text" id="customfield5"><input class="form-control d-none" type="text" id="customfield4">
+                                            <input
+                                                class="form-control d-none" type="text" id="customfield3"><input class="form-control d-none" type="text" id="customfield2"><input class="form-control d-none" type="text" id="lp-select3"><input class="form-control d-none" type="text" id="lp-select2"><input class="form-control d-none"
+                                                    type="text" id="lp-check5"><input class="form-control d-none" type="text" id="lp-check4"><input class="form-control d-none" type="text" id="lp-check3"><input class="form-control d-none" type="text" id="lp-check2">
+                                                <input
+                                                    class="form-control d-none" type="text" id="lp-telareacode"><input class="form-control d-none" type="text" id="lp-telcountrycode"></div>
+                                        <div class="col-12 col-sm-12 col-md-12"><button class="btn btn-outline-primary" type="button" style="width: 173px;">Create Profile</button></div>
+                                        <div class="col-md-12">
+                                            <div class="push-50"></div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">List of Profiles</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item"><span>Disabled</span></li>
+                                <li class="list-group-item"><span>Forgetful</span></li>
+                                <li class="list-group-item"><span>Dangerous</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="showcase"></section>
+    <footer class="footer bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 my-auto h-100 text-center text-lg-left">
+                    <ul class="list-inline mb-2">
+                        <li class="list-inline-item"><a href="#">About</a></li>
+                        <li class="list-inline-item"><span>⋅</span></li>
+                        <li class="list-inline-item"><a href="#">Contact</a></li>
+                        <li class="list-inline-item"><span>⋅</span></li>
+                        <li class="list-inline-item"><a href="#">Terms of &nbsp;Use</a></li>
+                        <li class="list-inline-item"><span>⋅</span></li>
+                        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                    </ul>
+                    <p class="text-muted small mb-4 mb-lg-0">© Brand 2018. All Rights Reserved.</p>
+                </div>
+                <div class="col-lg-6 my-auto h-100 text-center text-lg-right">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook fa-2x fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-twitter fa-2x fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-instagram fa-2x fa-fw"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-animation.js"></script>
+</body>
+
+</html>
