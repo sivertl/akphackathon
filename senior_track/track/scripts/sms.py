@@ -3,7 +3,7 @@ import json
 
 def alarm(message):
 
-    with open('sms_config.json') as json_data_file:
+    with open('C:/Users/eirik/Dropbox/Personlig/Prosjekter/Hackaton/Pozyx/akphackathon/senior_track/track/conf/sms_config.json') as json_data_file:
         data = json.load(json_data_file)
 
     account_sid = data['sms']['account_sid']
@@ -19,7 +19,3 @@ def alarm(message):
         client.messages.create(to=worker, 
                             from_=host_number, 
                             body=message)
-
-
-if __name__ == "__main__":
-    alarm("HJELP")
