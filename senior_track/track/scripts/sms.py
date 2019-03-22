@@ -3,7 +3,7 @@ import json
 
 def alarm(message):
 
-    with open('C:/Users/eirik/Dropbox/Personlig/Prosjekter/Hackaton/Pozyx/akphackathon/senior_track/track/conf/sms_config.json') as json_data_file:
+    with open('C:/Users/siver/Desktop/Hackathon2019/akphackathon/senior_track/track/conf/sms_config.json') as json_data_file:
         data = json.load(json_data_file)
 
     account_sid = data['sms']['account_sid']

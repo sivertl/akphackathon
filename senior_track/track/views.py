@@ -5,7 +5,7 @@ import json
 from .scripts import mqttapi
 from .scripts import sms
 
-_GRANNY_DATA = 'C:/Users/eirik/Dropbox/Personlig/Prosjekter/Hackaton/Pozyx/akphackathon/senior_track/track/conf/granny_data.json'
+_GRANNY_DATA = 'C:/Users/siver/Desktop/Hackathon2019/akphackathon/senior_track/track/conf/granny_data.json'
 
 # Callback function to mqtt object
 def test(device_id):

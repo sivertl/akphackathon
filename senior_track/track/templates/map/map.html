@@ -36,7 +36,7 @@
 	<!--<script src="http://leaflet.github.io/Leaflet.markercluster/example/realworld.10000.js"></script>-->
 	<script>
 		var map = L.map('map', {
-			crs: L.CRS.Simple
+			crs: L.CRS.Simple,
 		});
 
 		var x1 = -15594;
@@ -48,8 +48,8 @@
 		var y2 = 23561;
 		//23282/100;
 		
-		var bounds = [[(x1/100),(y1/100)], [(x2/100), (y2/100)]];
-		var image = L.imageOverlay('../static/images/floor_map.png', bounds).addTo(map);
+		var bounds = [[(x1/10),(y1/10)], [(x2/10), (y2/10)]];
+		var image = L.imageOverlay('../static/images/floor_map.png').addTo(map);
 
 		//map.setView([65.24751, 14.23828], 5);
 		//var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -59,8 +59,14 @@
 		// addressPoints = addressPoints.map(function (p) { return [p[0], p[1]]; });
 		// console.log(addressPoints);
 		// var heat = L.heatLayer(addressPoints).addTo(map);
-		map.fitBounds(bounds);
+		//map.fitBounds(bounds);
 		//map.setMaxBounds(bounds)
+		
+		// image dims
+		w = 841;
+		h = 982;
+		var mapWidth=map._container.offsetWidth;
+		var mapHeight=map._container.offsetHeight;
 		
 
 		function update(){
@@ -68,10 +74,12 @@
 				"{% url 'base:update' %}",
 				{},
 				function (data) {
+					console.log(mapWidth)
+					console.log(mapHeight)
 					console.log(data); // This is the json object
 					x = data[2]['Reidar']['coord']['x']
 					y = data[2]['Reidar']['coord']['y']
-					var sol =([(x/100), (y/100)]);
+					var sol =([(x * w / mapWidth), (y * h / mapHeight)]);
 					L.marker(sol).addTo(map);
 					setTimeout(update, 1000)
 				}
@@ -80,7 +88,6 @@
 		$(document).ready(
 			update
 		);
-
 		map.setView([x2/2,y2/2], 1);
 																							
 	</script>
