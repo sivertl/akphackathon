@@ -22,6 +22,19 @@
 
 <body>
 
+    <script>
+        $(document).ready(
+            function(){
+                $.getJSON(
+                    "{% url 'base:check_alerts' %}",
+                    {},
+                    function (data) {
+                        alert(data)
+                    }
+                )
+            }
+        );
+    </script>
 
     <nav class="navbar navbar-light navbar-expand bg-light navigation-clean">
         <div class="container"><a class="navbar-brand" href="#">Track an elderly person</a><button

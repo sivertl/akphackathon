@@ -29,7 +29,7 @@
 	<div class="leaflet-container" id="map"></div>
 
 	<!-- <script src="../node_modules/simpleheat/simpleheat.js"></script>
-<script src="../src/HeatLayer.js"></script> -->
+	<script src="../src/HeatLayer.js"></script> -->
 
 	<!--<script src="http://leaflet.github.io/Leaflet.markercluster/example/realworld.10000.js"></script>-->
 	<script>
@@ -37,8 +37,17 @@
 			crs: L.CRS.Simple
 		});
 
-		var bounds = [[11765,-10079], [-15891, 23282]];
-		var image = L.imageOverlay('../static/images/floor_map.png').addTo(map);
+		var x1 = 0
+		//11765/100;
+		var y1 = 0
+		//-10079/100;
+		var x2 = 1000;
+		//-15891/100;
+		var y2 = -1000;
+		//23282/100;
+		
+		var bounds = [[x1,y1], [x2, y2]];
+		var image = L.imageOverlay('../static/images/floor_map.png', bounds).addTo(map);
 
 		//map.setView([65.24751, 14.23828], 5);
 		//var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -48,8 +57,13 @@
 		// addressPoints = addressPoints.map(function (p) { return [p[0], p[1]]; });
 		// console.log(addressPoints);
 		// var heat = L.heatLayer(addressPoints).addTo(map);
-		map.fitBounds(bounds)	
-		map.setView([70,120],0.1)
+		map.fitBounds(bounds);
+		//map.setMaxBounds(bounds)
+
+		var sol =([x2/2,y2/2]);
+		L.marker(sol).addTo(map);
+
+		map.setView([x2/2,y2/2], 1);
 																							
 	</script>
 </body>
