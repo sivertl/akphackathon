@@ -16,9 +16,10 @@ canvas.data = { }
 bounds = None
 
 monster = None
-pool = Pool(processes=50)              # Start a worker processes.
+pool = Pool(processes=2)              # Start a worker processes.
 
 mqt = MQTT(host='10.101.115.207', port=1883, topics=['tagsLive'], use_ssl=False, use_websocket=False)
+sound_time = 0
 
 def playsound(st):
 	global pool
@@ -59,13 +60,17 @@ while True:
 		if vlen < 500:
 			time.sleep(1)
 			playsound('youlose.mp3')
+			time.sleep(5)
 			monster = [ c['x'] - 3000, c['y'] - 3000]
 		else:
-			if vlen < 1000:
-				playsound('woop.mp3')
-			else:
-				if vlen < 1700:
-					playsound('beep.mp3')
+			if time.time() - sound_time > 0.6:
+				if vlen < 1000:
+					playsound('woop.mp3')
+					sound_time = time.time()
+				else:
+					if vlen < 2000:
+						playsound('beep.mp3')
+						sound_time = time.time()
 		
 		wx = c['x']
 		wy = c['y']
