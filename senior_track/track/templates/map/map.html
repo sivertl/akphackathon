@@ -36,7 +36,7 @@
 	<!--<script src="http://leaflet.github.io/Leaflet.markercluster/example/realworld.10000.js"></script>-->
 	<script>
 		var map = L.map('map', {
-			crs: L.CRS.Simple
+			crs: L.CRS.Simple,
 		});
 
 		var x1 = 0;
@@ -48,8 +48,13 @@
 		var y2 = 800;
 		//23282/100;
 		
+<<<<<<< HEAD
 		var bounds = [[(x1),(y1)], [(x2), (y2)]];
 		var image = L.imageOverlay('../static/images/floor_map.png', bounds).addTo(map);
+=======
+		var bounds = [[x1,y1], [x2, y2]];
+		var image = L.imageOverlay('../static/images/floor_map.png').addTo(map);
+>>>>>>> a8c86dfc992123ad8e810e95e65f9c6d65d7328b
 
 		//map.setView([65.24751, 14.23828], 5);
 		//var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -59,7 +64,7 @@
 		// addressPoints = addressPoints.map(function (p) { return [p[0], p[1]]; });
 		// console.log(addressPoints);
 		// var heat = L.heatLayer(addressPoints).addTo(map);
-		map.fitBounds(bounds);
+		//map.fitBounds(bounds);
 		//map.setMaxBounds(bounds)
 
 		map.on('click', function(e){
@@ -69,16 +74,28 @@
 			console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
 		});
 		
+		// image dims
+		w = 841;
+		h = 982;
+		var mapWidth=map._container.offsetWidth;
+		var mapHeight=map._container.offsetHeight;
+		
 
 		function update(){
 			$.getJSON(
-				"{% url 'base:update' %}",
+				"{% url 'base:update' %}",	
 				{},
 				function (data) {
+					console.log(mapWidth)
+					console.log(mapHeight)
 					console.log(data); // This is the json object
 					x = data[2]['Reidar']['coord']['x']
 					y = data[2]['Reidar']['coord']['y']
+<<<<<<< HEAD
 					var sol =([(x/11.33), (-y/17.37)]);
+=======
+					var sol =([(x * w / mapWidth), (y * h / mapHeight)]);
+>>>>>>> a8c86dfc992123ad8e810e95e65f9c6d65d7328b
 					L.marker(sol).addTo(map);
 					setTimeout(update, 1000)
 				}
@@ -87,10 +104,13 @@
 		$(document).ready(
 			update
 		);
-
-		map.setView([x2/2,y2/2], 1);
+		map.setView([0,0], 1);
 																							
 	</script>
 </body>
 
 </html>
+
+16300, 403
+
+

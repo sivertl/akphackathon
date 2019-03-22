@@ -6,8 +6,12 @@ from django.conf import settings
 from .scripts import mqttapi
 from .scripts import sms
 
+<<<<<<< HEAD
 
 _GRANNY_DATA = './track/conf/granny_data.json'
+=======
+_GRANNY_DATA = 'C:/Users/siver/Desktop/Hackathon2019/akphackathon/senior_track/track/conf/granny_data.json'
+>>>>>>> a8c86dfc992123ad8e810e95e65f9c6d65d7328b
 
 # Callback function to mqtt object
 def test(device_id):
