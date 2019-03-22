@@ -51,7 +51,7 @@ class MQTT:
 	# Unbound function to act as message callback
 	def __on_message(client, userdata, msg_b):
 		try:
-			sys.stdout.write('\r{:5}   '.format(MQTT.__message_count))
+			#sys.stdout.write('\r{:5}   '.format(MQTT.__message_count))
 			MQTT.__message_count += 1
 			# We parse the message payload and iterate over the array of... data? messages? whatever you want to call it
 			message = json.loads(msg_b.payload.decode())
