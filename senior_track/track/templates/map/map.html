@@ -35,6 +35,21 @@
 
 	<!--<script src="http://leaflet.github.io/Leaflet.markercluster/example/realworld.10000.js"></script>-->
 	<script>
+
+		if (localStorage.getItem("lastX") == null){
+			// init variable/set default variable for item
+			var lastX = 0;
+		} else {
+			var lastX = localStorage.getItem("lastX");
+		}
+
+		if (localStorage.getItem("lastY") == null){
+			// init variable/set default variable for item
+			var lastY = 0;
+		} else {
+			var lastY = localStorage.getItem("lastY");
+		}
+
 		var map = L.map('map', {
 			crs: L.CRS.Simple,
 		});
@@ -48,13 +63,8 @@
 		var y2 = 800;
 		//23282/100;
 		
-<<<<<<< HEAD
-		var bounds = [[(x1),(y1)], [(x2), (y2)]];
-		var image = L.imageOverlay('../static/images/floor_map.png', bounds).addTo(map);
-=======
 		var bounds = [[x1,y1], [x2, y2]];
 		var image = L.imageOverlay('../static/images/floor_map.png').addTo(map);
->>>>>>> a8c86dfc992123ad8e810e95e65f9c6d65d7328b
 
 		//map.setView([65.24751, 14.23828], 5);
 		//var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -91,13 +101,14 @@
 					console.log(data); // This is the json object
 					x = data[2]['Reidar']['coord']['x']
 					y = data[2]['Reidar']['coord']['y']
-<<<<<<< HEAD
-					var sol =([(x/11.33), (-y/17.37)]);
-=======
-					var sol =([(x * w / mapWidth), (y * h / mapHeight)]);
->>>>>>> a8c86dfc992123ad8e810e95e65f9c6d65d7328b
-					L.marker(sol).addTo(map);
-					setTimeout(update, 1000)
+					if (!((lastX == 0)&&(lastY==0))) {
+						var sol =([((x - lastX)/11.33), ((y-lastY)/17.37)]);
+						L.marker(sol).addTo(map);
+						localStorage.setItem("lastX", x);
+						localStorage.setItem("lastY", y);
+					} 
+				
+					setTimeout(update, 1000);
 				}
 			)
 		}
