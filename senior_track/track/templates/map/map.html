@@ -48,7 +48,7 @@
 		var y2 = 23561;
 		//23282/100;
 		
-		var bounds = [[(x1/10),(y1/10)], [(x2/10), (y2/10)]];
+		var bounds = [[x1,y1], [x2, y2]];
 		var image = L.imageOverlay('../static/images/floor_map.png').addTo(map);
 
 		//map.setView([65.24751, 14.23828], 5);
@@ -71,7 +71,7 @@
 
 		function update(){
 			$.getJSON(
-				"{% url 'base:update' %}",
+				"{% url 'base:update' %}",	
 				{},
 				function (data) {
 					console.log(mapWidth)
@@ -88,9 +88,13 @@
 		$(document).ready(
 			update
 		);
-		map.setView([x2/2,y2/2], 1);
+		map.setView([0,0], 1);
 																							
 	</script>
 </body>
 
 </html>
+
+16300, 403
+
+
