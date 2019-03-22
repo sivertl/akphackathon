@@ -39,16 +39,16 @@
 			crs: L.CRS.Simple
 		});
 
-		var x1 = -15594;
+		var x1 = 0;
 		//11765/100;
-		var y1 = -10363;
+		var y1 = 0;
 		//-10079/100;
-		var x2 = 11417;
+		var x2 = 800;
 		//-15891/100;
-		var y2 = 23561;
+		var y2 = 800;
 		//23282/100;
 		
-		var bounds = [[(x1/100),(y1/100)], [(x2/100), (y2/100)]];
+		var bounds = [[(x1),(y1)], [(x2), (y2)]];
 		var image = L.imageOverlay('../static/images/floor_map.png', bounds).addTo(map);
 
 		//map.setView([65.24751, 14.23828], 5);
@@ -61,6 +61,13 @@
 		// var heat = L.heatLayer(addressPoints).addTo(map);
 		map.fitBounds(bounds);
 		//map.setMaxBounds(bounds)
+
+		map.on('click', function(e){
+			var coord = e.latlng;
+			var lat = coord.lat;
+			var lng = coord.lng;
+			console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
+		});
 		
 
 		function update(){
@@ -71,7 +78,7 @@
 					console.log(data); // This is the json object
 					x = data[2]['Reidar']['coord']['x']
 					y = data[2]['Reidar']['coord']['y']
-					var sol =([(x/100), (y/100)]);
+					var sol =([(x/11.33), (-y/17.37)]);
 					L.marker(sol).addTo(map);
 					setTimeout(update, 1000)
 				}
