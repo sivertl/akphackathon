@@ -36,7 +36,7 @@ def update(request):
                     'status':m.fell_recently(granny_id)
                 }})
                 
-    return JsonResponse(json.dumps(granny_update), safe=False)
+    return JsonResponse(granny_update, safe=False)
     
 def map(request):
     return render(request, 'map/map.html')
