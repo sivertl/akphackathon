@@ -7,6 +7,6 @@ app_name = 'base'
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('check_alerts/', views.check_alerts, name='check_alerts'),
+    path('update/', views.update, name='update'),
     path('map/', views.map, name = 'map')
 ]

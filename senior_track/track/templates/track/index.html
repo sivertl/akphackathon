@@ -23,16 +23,18 @@
 <body>
 
     <script>
+        function update(){
+            $.getJSON(
+                "{% url 'base:update' %}",
+                {},
+                function (data) {
+                    console.log(data); // This is the json object
+                    setTimeout(update, 1000)
+                }
+            )
+        }
         $(document).ready(
-            function(){
-                $.getJSON(
-                    "{% url 'base:check_alerts' %}",
-                    {},
-                    function (data) {
-                        alert(data)
-                    }
-                )
-            }
+            update
         );
     </script>
 
