@@ -100,6 +100,7 @@ class MQTT:
 	
 	# Returns the latest coordinates as a dictionary of 'x', 'y' and 'z'
 	# If device is not known, or if no xyz data has been found on the device, it returns None
+	@staticmethod
 	def get_coordinates(device_key):
 		# if the device key is in the device data list, and that it has a previous xyz value stored
 		if device_key in MQTT.__device_data and 'previous_xyz' in MQTT.__device_data[device_key]:
@@ -112,4 +113,19 @@ class MQTT:
 	@staticmethod
 	def set_fall_callback(callback_function):
 		MQTT.__fallen_callback = callback_function
+	
+	@staticmethod
+	def fell_recently(device_id):
+		# if known device
+		if device_id in MQTT.__device_data:
+			# if device has had a recorded fall in the past
+			if 'lastfall_time' in MQTT.__device_data[device_id]:
+				# if fall was recently, then true
+				return (time.time() - MQTT.__device_data[device_id]['lastfall_time']) < MQTT.__fall_timeout
+			else:
+				# never fallen => not currently falling
+				return False
+		else:
+			# unknown device, unknown state
+			return None
 
