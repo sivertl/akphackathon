@@ -3,7 +3,8 @@ from mqttapi import MQTT
 import math
 import time
 import os
-from playsound import playsound
+from playsound import playsound as ps
+from multiprocessing import Pool
 
 devid = "3449185141"
 
@@ -15,8 +16,13 @@ canvas.data = { }
 bounds = None
 
 monster = None
+pool = Pool(processes=50)              # Start a worker processes.
 
 mqt = MQTT(host='10.101.115.207', port=1883, topics=['tagsLive'], use_ssl=False, use_websocket=False)
+
+def playsound(st):
+	global pool
+	pool.apply_async(ps, [st]) # Evaluate "f(10)" asynchronously calling callback when finished.
 
 def cconv(coord):
 	global bounds
@@ -29,7 +35,7 @@ while True:
 		canvas.delete(ALL)
 		# update bounds
 		if bounds is None:
-			bounds = [c['x']-10, c['y']-10, c['x']+10, c['y']+10]
+			bounds = [c['x']-2000, c['y']-2000, c['x']+2000, c['y']+2000]
 		if c['x'] < bounds[0]+10:
 			bounds[0] = c['x']-10
 		if c['y'] < bounds[1]+10:
@@ -48,16 +54,17 @@ while True:
 		if vlen == 0:
 			v = [0,0]
 		v = [v[0]/vlen, v[1]/vlen]
-		monster[0] = monster[0] + v[0] * 600/24
-		monster[1] = monster[1] + v[1] * 600/24
-		if vlen < 400:
+		monster[0] = monster[0] + v[0] * 500/24
+		monster[1] = monster[1] + v[1] * 500/24
+		if vlen < 500:
+			time.sleep(1)
 			playsound('youlose.mp3')
 			monster = [ c['x'] - 3000, c['y'] - 3000]
 		else:
 			if vlen < 1000:
 				playsound('woop.mp3')
 			else:
-				if vlen < 3000:
+				if vlen < 1700:
 					playsound('beep.mp3')
 		
 		wx = c['x']
